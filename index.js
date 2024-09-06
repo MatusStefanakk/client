@@ -72,6 +72,15 @@ app.get('/get-tickets', async (req, res) => {
 });
 
 
+pool.connect((err, client, release) => {
+    if (err) {
+        console.error('Error acquiring client', err.stack);
+    } else {
+        console.log('Connected to the database');
+    }
+});
 
-const port = '53134';
+
+
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
