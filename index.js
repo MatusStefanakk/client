@@ -30,7 +30,7 @@ app.get('/', (request, response) => {
 app.get('https://fivem-clientrado.onrender.com/auth/discord', (request, response) => {
     response.sendFile(path.join(__dirname, 'dashboard.html'));
 });
-
+ 
 // Handle requests to /dashboard
 app.get('/dashboard', (request, response) => {
     response.sendFile(path.join(__dirname, 'dashboard.html'));
