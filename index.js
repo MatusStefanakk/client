@@ -27,7 +27,7 @@ app.get('/', (request, response) => {
 });
 
 // Serve the dashboard page
-app.get('/auth/discord', (request, response) => {
+app.get('https://fivem-clientrado.onrender.com/auth/discord', (request, response) => {
     response.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
