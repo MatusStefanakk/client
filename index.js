@@ -40,7 +40,7 @@ app.get('/dashboard', (request, response) => {
 app.post('/submit-data', async (req, res) => {
     const { ticket_creator, ticket_topic, ticket_text, ticket_state } = req.body;
     console.log("Do i even get there?");
-    console.log(pool);
+    console.log("Pool:" + pool);
     try {
         const query = 'INSERT INTO tickets (ticket_creator, ticket_topic, ticket_text, ticket_state) VALUES ($1, $2, $3, $4) RETURNING id;';
         await pool.query(query, [ticket_creator, ticket_topic, ticket_text, ticket_state]);
