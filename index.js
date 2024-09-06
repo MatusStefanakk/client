@@ -23,35 +23,32 @@ const pool = new Pool({
 
 // Serve the main page
 app.get('/', (request, response) => {
-    return response.sendFile('index.html', { root: '.' });
+    response.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Serve the dashboard page
 app.get('/auth/discord', (request, response) => {
-    return response.sendFile('dashboard.html', { root: '.' });
+    response.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
 // Handle requests to /dashboard
 app.get('/dashboard', (request, response) => {
-    return response.sendFile('dashboard.html', { root: '.' });
+    response.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
-  
 // Handle POST requests to submit data to the database
 app.post('/submit-data', async (req, res) => {
-    const { ticket_creator,ticket_topic, ticket_text, ticket_state } = req.body;
+    const { ticket_creator, ticket_topic, ticket_text, ticket_state } = req.body;
 
     try {
         const query = 'INSERT INTO tickets (ticket_creator, ticket_topic, ticket_text, ticket_state) VALUES ($1, $2, $3, $4) RETURNING id;';
-        await pool.query(query, [ticket_creator,ticket_topic, ticket_text, ticket_state]);
+        await pool.query(query, [ticket_creator, ticket_topic, ticket_text, ticket_state]);
         res.status(200).send('Data inserted successfully');
     } catch (err) {
         console.error(err);
         res.status(500).send('Error inserting data');
     }
-
 });
-
 
 // Handle GET requests to retrieve tickets for the current user
 app.get('/get-tickets', async (req, res) => {
@@ -70,17 +67,6 @@ app.get('/get-tickets', async (req, res) => {
         res.status(500).send('Error retrieving data');
     }
 });
-
-
-pool.connect((err, client, release) => {
-    if (err) {
-        console.error('Error acquiring client', err.stack);
-    } else {
-        console.log('Connected to the database');
-    }
-});
-
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
